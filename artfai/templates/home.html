@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block chatbot %}
+    <!-- Your chatbot UI goes here -->
+    <div class="chatbot">
+        <!-- Chatbot interface -->
+        <div class="chat-container">
+            <!-- Chatbot messages -->
+            <div class="messages">
+                <!-- Chat messages will appear here -->
+            </div>
+            <!-- Chat input -->
+            <form class="input-group mb-3">
+                <input type="text" class="form-control" id="userInput" placeholder="Type a message...">
+                <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <!-- Your search field and content display goes here -->
+    <div class="search-container">        
+            <form class="input-group mb-3" method="post" action="{% url 'home' %}">
+                {% csrf_token %}
+                {{ form.search }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        
+        <!-- Display search results here -->
+        <div class="search-results">
+            <!-- Results will appear here -->
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI - Art Provenace</title>
+    <!-- Load Bootstrap CSS using bootstrap5 template tags -->
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Navigation header -->
+    <header class="bg-dark text-white py-3">
+        <nav class="container-fluid d-flex justify-content-start">
+            <a class="navbar-brand text-white" href="#">ArtFai</a>
+        </nav>
+    </header>
+
+    <div class="d-flex flex-grow-1">
+        <div class="bg-light p-3 w-25">
+            {% block chatbot %}
+            <!-- Chatbot content goes here -->
+            {% endblock %}
+        </div>
+        <div class="p-3 w-100">
+            {% block content %}
+            <!-- Main content goes here -->
+            {% endblock %}
+        </div>
+    </div>
+
+    <footer class="bg-light p-3 w-100">
+        <div class="d-flex">
+            <div class="bg-light p-3 w-100">
+                {% block search %}
+                <!-- Search content goes here -->
+                {% endblock %}
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load Bootstrap JS using bootstrap5 template tags -->
+    {% bootstrap_javascript %}
+</body>
+</html>
