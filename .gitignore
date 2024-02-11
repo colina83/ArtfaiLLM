@@ -1,2 +1,7 @@
 config.json
-.env
+myenv/
+*.pyc
+.myenv
+db.sqlite3
+config.ini
+*.log
