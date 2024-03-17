@@ -96,17 +96,19 @@ class HarvardMuseumAPI:
 
 
 
+query = "Paul Cezanne"
 #query = "dog"
-#query = "dog"
-#harvard_object = HarvardMuseumAPI()
-#search = harvard_object.search_all(query)
-#print(search)
-#print(len(search))
+harvard_object = HarvardMuseumAPI()
+search = harvard_object.search_all(query)
+print(search)
+print(len(search))
 #result = harvard_object.provenance(query)
 #print(result)
 #print(len(result))
 #print(len(result))
 
+
+'''
 ## Victoria and Albert Museum API
 class VicAlAPI:
     def __init__(self):
@@ -120,7 +122,7 @@ class VicAlAPI:
         while True:
             req = requests.get(f'https://api.vam.ac.uk/v2/objects/search?q="{query}"&page={page}')
             object_data = req.json()
-            object_records = object_data["records"]
+            object_records = object_data['info']['pages']
             all_records.extend(object_records)
             page += 1
             print(page)
@@ -129,11 +131,10 @@ class VicAlAPI:
         
         df = pd.DataFrame(all_records)
         return df
+                    
         
-            
-        
-'''
-req = requests.get('https://api.vam.ac.uk/v2/objects/search?q="china"&page=2')
+
+req = requests.get('https://api.vam.ac.uk/v2/objects/search?q="dog"&page=1')
 object_data = req.json()
 object_info = object_data["info"]
 object_records = object_data["records"]
@@ -141,11 +142,12 @@ record_count = object_info["record_count"]
 df = pd.DataFrame(object_records)
 # Create DataFrame
 print(f"There are {record_count} objects that have the word 'china' somewhere in the record")
-print(df)
-print(object_data['info']['pages'])
-'''
+print(df['_images'])
+print(object_data['info']['pages'].iloc(4))
+
 
 vicai = VicAlAPI()
-query = "china"
+query = "modern painting"
 search = vicai.search_all(query)
 print(search)
+'''
