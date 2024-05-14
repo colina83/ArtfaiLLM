@@ -6,6 +6,7 @@ from dotenv import load_dotenv, find_dotenv
 import requests
 
 # Harvard Class
+'''
 
 class HarvardMuseumAPI:    
     def __init__(self):
@@ -106,48 +107,37 @@ print(len(search))
 #print(result)
 #print(len(result))
 #print(len(result))
-
-
 '''
+
+
 ## Victoria and Albert Museum API
 class VicAlAPI:
     def __init__(self):
         self.all_records_info = [] # List to store all records
-        self.url = 'https://api.vam.ac.uk/v2/objects/search?q="china"'
+        self.url = "https://api.vam.ac.uk/v2/objects"
        
        
-    def search_all(self, query):
+    def search_all(self, query, exact_match=False):
         page = 1
         all_records = []
+        if exact_match:
+            query = f'"{query}"'
         while True:
-            req = requests.get(f'https://api.vam.ac.uk/v2/objects/search?q="{query}"&page={page}')
+            req = requests.get(f'{self.url}/search?q={query}&page={page}')
             object_data = req.json()
-            object_records = object_data['info']['pages']
+            object_records = object_data['records']
             all_records.extend(object_records)
             page += 1
-            print(page)
             if page > object_data['info']['pages']:
                 break
         
         df = pd.DataFrame(all_records)
+        filename = f"{query}_search_results.csv"
+        df.to_csv(filename, index=False)
         return df
-                    
-        
-
-req = requests.get('https://api.vam.ac.uk/v2/objects/search?q="dog"&page=1')
-object_data = req.json()
-object_info = object_data["info"]
-object_records = object_data["records"]
-record_count = object_info["record_count"]
-df = pd.DataFrame(object_records)
-# Create DataFrame
-print(f"There are {record_count} objects that have the word 'china' somewhere in the record")
-print(df['_images'])
-print(object_data['info']['pages'].iloc(4))
-
 
 vicai = VicAlAPI()
-query = "modern painting"
-search = vicai.search_all(query)
-print(search)
-'''
+query = "Paul Cezanne"
+search = vicai.search_all(query, exact_match=True)
+print(search)                  
+

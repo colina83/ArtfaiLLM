@@ -6,3 +6,5 @@ db.sqlite3
 config.ini
 *.log
 .env
+.venv
+venv/
